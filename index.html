@@ -54,15 +54,20 @@ b.flag{color:var(--red)}
 nav{position:fixed;left:0;right:0;bottom:0;z-index:40;background:rgba(6,11,20,.97);border-top:1px solid var(--bd);backdrop-filter:blur(8px)}
 .navin{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none}
 .navin::-webkit-scrollbar{display:none}
-.navin a{scroll-snap-align:center;flex:0 0 auto;padding:11px 15px;text-decoration:none;color:var(--mu);font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:500;border-top:2px solid transparent;white-space:nowrap}
-.navin a.on{color:var(--amber);border-top-color:var(--amber);background:rgba(240,165,0,.06)}
+.navin button{scroll-snap-align:center;flex:0 0 auto;padding:9px 15px;background:none;border:none;color:var(--mu);font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:500;border-top:2px solid transparent;white-space:nowrap;cursor:pointer;line-height:1.35}
+.navin button .nn{display:block;font-size:9px;color:var(--fa);letter-spacing:.06em}
+.navin button.on{color:var(--amber);border-top-color:var(--amber);background:rgba(240,165,0,.06)}
+.navin button.on .nn{color:var(--amber)}
 @media(min-width:900px){
   body{padding-bottom:0}
   nav{position:sticky;top:0;bottom:auto;border-top:none;border-bottom:1px solid var(--bd)}
-  .navin{max-width:1180px;margin:0 auto;padding:0 16px;justify-content:flex-start}
-  .navin a{border-top:none;border-bottom:2px solid transparent;font-size:11.5px}
-  .navin a.on{border-bottom-color:var(--amber)}
+  .navin{max-width:1180px;margin:0 auto;padding:0 16px;flex-wrap:wrap;overflow:visible}
+  .navin button{border-top:none;border-bottom:2px solid transparent;font-size:11.5px;padding:10px 16px}
+  .navin button.on{border-bottom-color:var(--amber)}
 }
+.panel{display:none}
+.panel.on{display:block;animation:fade .18s ease}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
 
 /* hero */
 .hero{margin:20px 0;border:1px solid rgba(240,165,0,.32);background:linear-gradient(135deg,rgba(240,165,0,.07),rgba(240,165,0,.015));border-radius:12px;padding:16px 18px}
@@ -71,7 +76,7 @@ nav{position:fixed;left:0;right:0;bottom:0;z-index:40;background:rgba(6,11,20,.9
 .hero p:last-child{margin-bottom:0}
 .hero strong{color:var(--tx)}
 
-section{margin:26px 0;scroll-margin-top:64px}
+section{margin:22px 0}
 .shead{display:flex;align-items:baseline;gap:10px;margin-bottom:12px;border-bottom:1px solid var(--bd);padding-bottom:7px}
 .snum{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--amber);font-weight:700}
 .shead h2{font-size:17px}
@@ -154,6 +159,8 @@ footer h3{font-size:13px;margin-bottom:8px;color:var(--tx)}
   :root{--bg:#fff;--panel:#fff;--bd:#c9d2e0;--tx:#101418;--mu:#40464f;--fa:#5f6875}
   body{background:#fff;color:#101418;padding:0;font-size:9.4pt}
   nav,.chips{display:none!important}
+  .panel{display:block!important}
+  .panel+.panel{border-top:1px solid #c9d2e0;padding-top:10pt;margin-top:12pt}
   .trig,.card,.chartbox,.tblwrap,ul.risks li,.fbox,.hero{break-inside:avoid;page-break-inside:avoid}
   .grid{grid-template-columns:1fr 1fr}
   .cwrap{height:200px}
@@ -203,28 +210,24 @@ footer h3{font-size:13px;margin-bottom:8px;color:var(--tx)}
 </header>
 
 <nav><div class="navin" id="navbar">
-  <a href="#s90" data-t="s90">90-SEC READ</a>
-  <a href="#s1" data-t="s1">S1 SNAPSHOT</a>
-  <a href="#s2" data-t="s2">S2 TRIGGERS</a>
-  <a href="#sc" data-t="sc">CHARTS</a>
-  <a href="#s3" data-t="s3">S3 PRICED IN</a>
-  <a href="#s4" data-t="s4">S4 RISKS</a>
-  <a href="#s5" data-t="s5">S5 SCOREBOARD</a>
-  <a href="#s6" data-t="s6">EVIDENCE</a>
+  <button data-t="s1" class="on"><span class="nn">01</span>SNAPSHOT</button>
+  <button data-t="s2"><span class="nn">02</span>TRIGGERS</button>
+  <button data-t="sc"><span class="nn">03</span>TIMING &amp; SIZE</button>
+  <button data-t="s3"><span class="nn">04</span>PRICED IN</button>
+  <button data-t="s4"><span class="nn">05</span>RISKS</button>
+  <button data-t="s5"><span class="nn">06</span>SCOREBOARD</button>
 </div></nav>
 
 <div class="wrap">
 
-<section id="s90">
-  <div class="hero">
+<div class="hero" id="s90">
     <h2>The 90-second read</h2>
     <p><strong>The biggest number nobody has modelled yet.</strong> A manufacturing and supply agreement was signed with a global specialty pharma company, disclosed for the first time on 10 Aug 2026, with potential annual revenue of <strong>$90–100m — about ₹860–955 cr, or 13–14% of everything the company sells today.</strong> No date has been given for when it starts. <span class="src">Q1FY27 call · 10 Aug 26</span></p>
     <p><strong>The first real money arrives in FY27 and is already visible.</strong> Making medicines for other companies (CDMO) is now half of all sales, and the profit left from each ₹100 of sales rose by ₹2.76 in the June quarter (margin, +276 bps).</p>
     <p><strong>What breaks it:</strong> this management has delivered only 6 of the 18 promises that have actually come due. <strong>Read every date here as one to two years later than stated.</strong></p>
-  </div>
-</section>
+</div>
 
-<section id="s1">
+<section class="panel on" id="s1">
   <div class="shead"><span class="snum">S1</span><h2>Snapshot</h2><span class="sub">what the business is</span></div>
   <div class="snapgrid">
     <div class="card">
@@ -248,7 +251,7 @@ footer h3{font-size:13px;margin-bottom:8px;color:var(--tx)}
   </div>
 </section>
 
-<section id="s2">
+<section class="panel" id="s2">
   <div class="shead"><span class="snum">S2</span><h2>Core growth triggers</h2><span class="sub">7 triggers · filter below</span></div>
   <div class="chips" id="chips">
     <span class="chiplbl">Conviction</span>
@@ -385,7 +388,7 @@ footer h3{font-size:13px;margin-bottom:8px;color:var(--tx)}
   </div>
 </section>
 
-<section id="sc">
+<section class="panel" id="sc">
   <div class="shead"><span class="snum">—</span><h2>When it lands, and how much</h2><span class="sub">2 charts</span></div>
 
   <div class="chartbox">
@@ -403,7 +406,7 @@ footer h3{font-size:13px;margin-bottom:8px;color:var(--tx)}
   </div>
 </section>
 
-<section id="s3">
+<section class="panel" id="s3">
   <div class="shead"><span class="snum">S3</span><h2>What's already in the price</h2></div>
   <div class="card">
     <p style="margin-top:0"><span class="t tf">[F]</span> The share is at ₹2,891 against a 52-week range of ₹1,574–2,989 — up 50% in a year, and it touched a four-year high on results day. You pay ₹41.60 for every ₹1 of last year's profit (P/E 41.6×). <span class="t tf">[F]</span> After the results, Motilal Oswal rates it BUY with a ₹3,080 target, lifting FY27/28 estimates by 3%/4% and expecting profits to grow 21% a year to FY28; Jefferies is BUY at ₹3,350. <span class="src">Business Standard · 11 Aug 26</span></p>
@@ -415,7 +418,7 @@ footer h3{font-size:13px;margin-bottom:8px;color:var(--tx)}
   </div>
 </section>
 
-<section id="s4">
+<section class="panel" id="s4">
   <div class="shead"><span class="snum">S4</span><h2>Risks to the trigger thesis</h2><span class="sub">what breaks these specific triggers</span></div>
   <ul class="risks">
     <li><b class="h">The delivery record undercuts every medium-conviction trigger — hits 1, 4 and 6</b>
@@ -431,7 +434,7 @@ footer h3{font-size:13px;margin-bottom:8px;color:var(--tx)}
   </ul>
 </section>
 
-<section id="s5">
+<section class="panel" id="s5">
   <div class="shead"><span class="snum">S5</span><h2>Trigger scoreboard</h2><span class="sub">tap a heading to sort</span></div>
   <div class="tblwrap">
     <table id="board">
@@ -453,8 +456,7 @@ footer h3{font-size:13px;margin-bottom:8px;color:var(--tx)}
   <p style="font-size:12.4px;color:var(--mu);margin-top:10px"><b class="flag">Do not read the total as a forecast.</b> It sums full run-rate potentials landing across FY27–FY29 on ramp-ups that have not been disclosed, two of them undated. Triggers 1 and 2 may overlap.</p>
 </section>
 
-<section id="s6">
-  <footer>
+<footer id="s6">
     <div class="fgrid">
       <div class="fbox">
         <h3>Documents read</h3>
@@ -473,8 +475,7 @@ footer h3{font-size:13px;margin-bottom:8px;color:var(--tx)}
       <strong>How to read this:</strong> every number carries a source and a date. Figures we worked out ourselves are marked <span class="t te">[E]</span> with the sum shown, so you can check them. Anything the company has not disclosed says <span class="nd">NOT DISCLOSED</span> rather than being estimated. Anything management said about the future is labelled as guidance, never as fact. Exchange rates used: USD/INR ₹95.45 (11 Aug 26), EUR/INR ₹106.02 (ECB 13 Mar 26 — five months old, so euro conversions drift).
       <br><br>For research only. Not investment advice.
     </div>
-  </footer>
-</section>
+</footer>
 
 </div>
 
@@ -502,23 +503,38 @@ footer h3{font-size:13px;margin-bottom:8px;color:var(--tx)}
     });
   });
 
-  /* ---------- nav active state ---------- */
-  var navLinks=Array.prototype.slice.call(document.querySelectorAll("#navbar a"));
-  var sects=navLinks.map(function(a){return document.getElementById(a.getAttribute("data-t"));});
-  var navObs=new IntersectionObserver(function(entries){
-    entries.forEach(function(en){
-      if(!en.isIntersecting) return;
-      navLinks.forEach(function(a){
-        var hit=(a.getAttribute("data-t")===en.target.id);
-        if(hit){a.classList.add("on");
-          if(a.parentNode.scrollWidth>a.parentNode.clientWidth){
-            a.scrollIntoView({behavior:"smooth",block:"nearest",inline:"center"});
-          }
-        } else {a.classList.remove("on");}
-      });
+  /* ---------- tabs ---------- */
+  var navBtns=Array.prototype.slice.call(document.querySelectorAll("#navbar button"));
+  var panels=Array.prototype.slice.call(document.querySelectorAll(".panel"));
+  var chartsFor={sc:["cTime","cBridge"]};
+  var drawn={};
+
+  function openTab(tid){
+    panels.forEach(function(pn){
+      if(pn.id===tid){pn.classList.add("on");}else{pn.classList.remove("on");}
     });
-  },{rootMargin:"-45% 0px -50% 0px",threshold:0});
-  sects.forEach(function(s){if(s) navObs.observe(s);});
+    navBtns.forEach(function(bt){
+      var hit=(bt.getAttribute("data-t")===tid);
+      if(hit){
+        bt.classList.add("on");
+        if(bt.parentNode.scrollWidth>bt.parentNode.clientWidth){
+          bt.scrollIntoView({behavior:"smooth",block:"nearest",inline:"center"});
+        }
+      } else {bt.classList.remove("on");}
+    });
+    window.scrollTo({top:0,behavior:"smooth"});
+    /* charts only draw once their panel is visible — a display:none canvas
+       measures zero and renders blank */
+    (chartsFor[tid]||[]).forEach(function(cid){
+      if(drawn[cid]) return;
+      drawn[cid]=true;
+      if(cid==="cTime") drawTimeline();
+      if(cid==="cBridge") drawBridge();
+    });
+  }
+  navBtns.forEach(function(bt){
+    bt.addEventListener("click",function(){openTab(bt.getAttribute("data-t"));});
+  });
 
   /* ---------- table sort ---------- */
   var tbl=document.getElementById("board");
@@ -577,8 +593,6 @@ footer h3{font-size:13px;margin-bottom:8px;color:var(--tx)}
       });
     }
   };
-
-  var drawn={};
 
   function drawTimeline(){
     var el=document.getElementById("cTime");
@@ -692,22 +706,17 @@ footer h3{font-size:13px;margin-bottom:8px;color:var(--tx)}
     });
   }
 
-  var chartObs=new IntersectionObserver(function(entries){
-    entries.forEach(function(en){
-      if(!en.isIntersecting) return;
-      var cid=en.target.id;
+  Chart.register(barLabel);
+
+  /* printing reveals every panel, so any undrawn chart would print blank */
+  window.addEventListener("beforeprint",function(){
+    ["cTime","cBridge"].forEach(function(cid){
       if(drawn[cid]) return;
       drawn[cid]=true;
       if(cid==="cTime") drawTimeline();
       if(cid==="cBridge") drawBridge();
     });
-  },{rootMargin:"120px 0px",threshold:0.01});
-  ["cTime","cBridge"].forEach(function(cid){
-    var cv=document.getElementById(cid);
-    if(cv) chartObs.observe(cv);
   });
-
-  Chart.register(barLabel);
 })();
 </script>
 </body>
