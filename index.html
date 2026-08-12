@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gland Pharma — Growth Triggers 1-Pager</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{
+  --bg:#04080f; --panel:#0a1220; --bd:#17233b; --amber:#f0a500;
+  --tx:#e8edf6; --mu:#8a94a6; --fa:#5a6577;
+  --green:#37d39b; --red:#ff5964; --blue:#5aa9ff; --purple:#b48cff;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:'DM Sans',system-ui,sans-serif;line-height:1.55;padding-bottom:76px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px}
+h1,h2,h3,h4{font-family:'Syne',sans-serif;margin:0;letter-spacing:-.01em}
+.mono{font-family:'JetBrains Mono',monospace}
+
+/* header */
+header{border-bottom:1px solid var(--bd);background:linear-gradient(180deg,#08101d,#04080f);padding:18px 0 14px}
+.hrow{display:flex;flex-wrap:wrap;gap:10px;align-items:baseline;justify-content:space-between}
+h1{font-size:24px;font-weight:800}
+h1 span{color:var(--amber)}
+.asof{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fa)}
+.convbadge{font-family:'JetBrains Mono',monospace;font-size:11.5px;font-weight:700;border:1px solid var(--bd);border-radius:999px;padding:5px 12px;background:#0d1626}
+.convbadge b{font-weight:700}
+.hi{color:var(--green)}.me{color:var(--amber)}.op{color:var(--purple)}
+
+.kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:14px}
+@media(min-width:640px){.kpis{grid-template-columns:repeat(4,1fr)}}
+@media(min-width:1000px){.kpis{grid-template-columns:repeat(7,1fr)}}
+.kpi{background:var(--panel);border:1px solid var(--bd);border-radius:9px;padding:8px 10px}
+.kpi .k{font-size:9.5px;text-transform:uppercase;letter-spacing:.09em;color:var(--fa)}
+.kpi .v{font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:700;margin-top:2px}
+.kpi .s{font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--mu)}
+
+.key{margin-top:12px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:11px;color:var(--mu)}
+.key .lbl{font-size:9.5px;text-transform:uppercase;letter-spacing:.09em;color:var(--fa);margin-right:2px}
+
+/* tags */
+.t{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:700;padding:1px 5px;border-radius:4px;white-space:nowrap;display:inline-block;vertical-align:baseline}
+.tf{background:rgba(55,211,155,.14);color:var(--green);border:1px solid rgba(55,211,155,.32)}
+.te{background:rgba(240,165,0,.14);color:var(--amber);border:1px solid rgba(240,165,0,.32)}
+.to{background:rgba(180,140,255,.14);color:var(--purple);border:1px solid rgba(180,140,255,.32)}
+.src{font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--blue);background:rgba(90,169,255,.1);border:1px solid rgba(90,169,255,.26);border-radius:4px;padding:1px 5px;white-space:nowrap}
+.nd{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--red);border:1px dashed var(--red);border-radius:4px;padding:1px 6px;display:inline-block}
+b.flag{color:var(--red)}
+
+/* nav */
+nav{position:fixed;left:0;right:0;bottom:0;z-index:40;background:rgba(6,11,20,.97);border-top:1px solid var(--bd);backdrop-filter:blur(8px)}
+.navin{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.navin::-webkit-scrollbar{display:none}
+.navin a{scroll-snap-align:center;flex:0 0 auto;padding:11px 15px;text-decoration:none;color:var(--mu);font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:500;border-top:2px solid transparent;white-space:nowrap}
+.navin a.on{color:var(--amber);border-top-color:var(--amber);background:rgba(240,165,0,.06)}
+@media(min-width:900px){
+  body{padding-bottom:0}
+  nav{position:sticky;top:0;bottom:auto;border-top:none;border-bottom:1px solid var(--bd)}
+  .navin{max-width:1180px;margin:0 auto;padding:0 16px;justify-content:flex-start}
+  .navin a{border-top:none;border-bottom:2px solid transparent;font-size:11.5px}
+  .navin a.on{border-bottom-color:var(--amber)}
+}
+
+/* hero */
+.hero{margin:20px 0;border:1px solid rgba(240,165,0,.32);background:linear-gradient(135deg,rgba(240,165,0,.07),rgba(240,165,0,.015));border-radius:12px;padding:16px 18px}
+.hero h2{font-size:11px;text-transform:uppercase;letter-spacing:.14em;color:var(--amber);margin-bottom:10px}
+.hero p{margin:0 0 9px;font-size:14.5px}
+.hero p:last-child{margin-bottom:0}
+.hero strong{color:var(--tx)}
+
+section{margin:26px 0;scroll-margin-top:64px}
+.shead{display:flex;align-items:baseline;gap:10px;margin-bottom:12px;border-bottom:1px solid var(--bd);padding-bottom:7px}
+.snum{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--amber);font-weight:700}
+.shead h2{font-size:17px}
+.shead .sub{font-size:11px;color:var(--fa);margin-left:auto}
+
+.card{background:var(--panel);border:1px solid var(--bd);border-radius:11px;padding:14px 16px}
+.snapgrid{display:grid;gap:12px}
+@media(min-width:900px){.snapgrid{grid-template-columns:1.35fr 1fr}}
+.callout{border-left:3px solid var(--green);background:rgba(55,211,155,.06);border-radius:0 8px 8px 0;padding:11px 13px;margin-top:11px;font-size:13.5px}
+.callout.warn{border-left-color:var(--red);background:rgba(255,89,100,.06)}
+.callout .ct{font-family:'Syne',sans-serif;font-weight:700;font-size:12.5px;display:block;margin-bottom:4px}
+
+/* chips */
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.chip{font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:600;padding:5px 11px;border-radius:999px;border:1px solid var(--bd);background:#0d1626;color:var(--mu);cursor:pointer;transition:.15s}
+.chip:hover{border-color:var(--fa);color:var(--tx)}
+.chip.on{background:var(--amber);border-color:var(--amber);color:#04080f}
+.chiplbl{font-size:9.5px;text-transform:uppercase;letter-spacing:.09em;color:var(--fa);align-self:center;margin-right:2px}
+
+/* trigger cards */
+.grid{display:grid;gap:13px}
+@media(min-width:900px){.grid{grid-template-columns:1fr 1fr}.trig.wide{grid-column:1/-1}}
+.trig{background:var(--panel);border:1px solid var(--bd);border-radius:11px;padding:14px 16px;display:flex;flex-direction:column}
+.trig.hide{display:none}
+.trig.c-high{border-left:3px solid var(--green)}
+.trig.c-med{border-left:3px solid var(--amber)}
+.trig.c-opt{border-left:3px solid var(--purple)}
+.tt{display:flex;gap:10px;align-items:flex-start;justify-content:space-between;margin-bottom:5px}
+.tt h3{font-size:15.5px;line-height:1.3}
+.rank{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--amber);font-weight:700;margin-right:6px}
+.pill{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:700;padding:3px 8px;border-radius:999px;white-space:nowrap;flex:0 0 auto}
+.pill.high{background:rgba(55,211,155,.15);color:var(--green);border:1px solid rgba(55,211,155,.4)}
+.pill.med{background:rgba(240,165,0,.15);color:var(--amber);border:1px solid rgba(240,165,0,.4)}
+.pill.opt{background:rgba(180,140,255,.15);color:var(--purple);border:1px solid rgba(180,140,255,.4)}
+.cat{font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.08em;color:var(--fa);margin-bottom:8px}
+.body{font-size:13.3px;color:#d5dcea}
+.body p{margin:0 0 8px}
+.impact{background:#0d1626;border:1px solid var(--bd);border-radius:8px;padding:10px 12px;margin:9px 0}
+.impact .il{font-size:9.5px;text-transform:uppercase;letter-spacing:.09em;color:var(--fa);margin-bottom:3px}
+.impact .iv{font-family:'JetBrains Mono',monospace;font-size:17px;font-weight:700;color:var(--amber);line-height:1.25}
+.impact .idv{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--mu);margin-top:4px}
+.meta{display:flex;flex-wrap:wrap;gap:7px;margin:8px 0;font-family:'JetBrains Mono',monospace;font-size:10px}
+.meta span{background:#0d1626;border:1px solid var(--bd);border-radius:5px;padding:3px 8px;color:var(--mu)}
+.meta .vnew{color:var(--green);border-color:rgba(55,211,155,.35)}
+.meta .vslip{color:var(--red);border-color:rgba(255,89,100,.4)}
+.watch{border-left:2px solid var(--amber);padding:5px 0 5px 10px;font-size:12.3px;color:var(--mu);margin-top:auto}
+.watch b{color:var(--amber);font-weight:700}
+
+/* charts */
+.chartbox{background:var(--panel);border:1px solid var(--bd);border-radius:11px;padding:14px 16px;margin-bottom:13px}
+.chartbox h3{font-size:14px;margin-bottom:3px}
+.chartbox .ch{font-size:11.5px;color:var(--fa);margin-bottom:10px}
+.cap{font-size:12px;color:var(--mu);margin-top:9px;border-top:1px dashed var(--bd);padding-top:8px}
+.cwrap{position:relative;height:300px}
+.cwrap.tall{height:340px}
+
+/* table */
+.tblwrap{overflow-x:auto;border:1px solid var(--bd);border-radius:11px}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:12.7px}
+th{background:#0d1626;text-align:left;padding:10px 12px;font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:var(--mu);border-bottom:1px solid var(--bd);cursor:pointer;user-select:none;white-space:nowrap}
+th:hover{color:var(--amber)}
+th.nos{cursor:default}th.nos:hover{color:var(--mu)}
+td{padding:10px 12px;border-bottom:1px solid rgba(23,35,59,.6);vertical-align:top}
+tr:last-child td{border-bottom:none}
+td.num{font-family:'JetBrains Mono',monospace;font-size:12px}
+.total{background:rgba(240,165,0,.06);font-weight:700}
+
+ul.risks{list-style:none;padding:0;margin:0}
+ul.risks li{border:1px solid var(--bd);border-left:3px solid var(--red);background:var(--panel);border-radius:0 9px 9px 0;padding:11px 13px;margin-bottom:9px;font-size:13.3px}
+ul.risks li b.h{font-family:'Syne',sans-serif;font-size:13.5px;color:var(--tx);display:block;margin-bottom:3px}
+
+footer{border-top:1px solid var(--bd);margin-top:32px;padding:18px 0 26px;font-size:12px;color:var(--mu)}
+footer h3{font-size:13px;margin-bottom:8px;color:var(--tx)}
+.fgrid{display:grid;gap:14px}
+@media(min-width:900px){.fgrid{grid-template-columns:1fr 1fr}}
+.fbox{background:var(--panel);border:1px solid var(--bd);border-radius:9px;padding:12px 14px}
+.contract{margin-top:14px;font-size:11.3px;color:var(--fa);border-top:1px solid var(--bd);padding-top:12px}
+
+@media print{
+  :root{--bg:#fff;--panel:#fff;--bd:#c9d2e0;--tx:#101418;--mu:#40464f;--fa:#5f6875}
+  body{background:#fff;color:#101418;padding:0;font-size:9.4pt}
+  nav,.chips{display:none!important}
+  .trig,.card,.chartbox,.tblwrap,ul.risks li,.fbox,.hero{break-inside:avoid;page-break-inside:avoid}
+  .grid{grid-template-columns:1fr 1fr}
+  .cwrap{height:200px}
+  header{background:#fff}
+  .hero{background:#fff8e8}
+  a{color:inherit}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="hrow">
+      <div>
+        <h1>Gland Pharma <span>· NSE: GLAND</span></h1>
+        <div class="asof">Growth Triggers 1-Pager · as of 12 Aug 2026 · Pharma — injectables &amp; contract manufacturing</div>
+      </div>
+      <div class="convbadge"><b class="hi">3 HIGH</b> · <b class="me">3 MED</b> · <b class="op">1 OPT</b></div>
+    </div>
+
+    <div class="kpis">
+      <div class="kpi"><div class="k">CMP</div><div class="v">₹2,891</div><div class="s">52w 1,574–2,989</div></div>
+      <div class="kpi"><div class="k">Market cap</div><div class="v">₹47,698 cr</div><div class="s">P/E 41.6×</div></div>
+      <div class="kpi"><div class="k">Revenue (12m)</div><div class="v">₹6,725 cr</div><div class="s">FY26 ₹6,431 cr</div></div>
+      <div class="kpi"><div class="k">Operating margin</div><div class="v">26%</div><div class="s">Q1FY27 27.2%</div></div>
+      <div class="kpi"><div class="k">ROCE / ROE</div><div class="v">15.1% / 10.7%</div><div class="s">3-yr ROE 9%</div></div>
+      <div class="kpi"><div class="k">Promoter</div><div class="v">51.77%</div><div class="s">74% in 2017</div></div>
+      <div class="kpi"><div class="k">Net cash</div><div class="v">₹3,294 cr</div><div class="s">no dilution needed</div></div>
+    </div>
+
+    <div class="key">
+      <span class="lbl">Key</span>
+      <span class="t tf">[F]</span><span>stated in a source</span>
+      <span class="t te">[E]</span><span>worked out by us, sums shown</span>
+      <span class="t to">[O]</span><span>our judgement</span>
+      <span class="src">source · date</span>
+      <span class="nd">NOT DISCLOSED</span>
+    </div>
+    <div class="key" style="margin-top:6px">
+      <span class="lbl">Conviction</span>
+      <span class="pill high">HIGH</span><span>already signed, built or approved</span>
+      <span class="pill med">MEDIUM</span><span>promised with a number and a date, not locked in</span>
+      <span class="pill opt">OPTIONALITY</span><span>real upside nobody is counting on</span>
+    </div>
+  </div>
+</header>
+
+<nav><div class="navin" id="navbar">
+  <a href="#s90" data-t="s90">90-SEC READ</a>
+  <a href="#s1" data-t="s1">S1 SNAPSHOT</a>
+  <a href="#s2" data-t="s2">S2 TRIGGERS</a>
+  <a href="#sc" data-t="sc">CHARTS</a>
+  <a href="#s3" data-t="s3">S3 PRICED IN</a>
+  <a href="#s4" data-t="s4">S4 RISKS</a>
+  <a href="#s5" data-t="s5">S5 SCOREBOARD</a>
+  <a href="#s6" data-t="s6">EVIDENCE</a>
+</div></nav>
+
+<div class="wrap">
+
+<section id="s90">
+  <div class="hero">
+    <h2>The 90-second read</h2>
+    <p><strong>The biggest number nobody has modelled yet.</strong> A manufacturing and supply agreement was signed with a global specialty pharma company, disclosed for the first time on 10 Aug 2026, with potential annual revenue of <strong>$90–100m — about ₹860–955 cr, or 13–14% of everything the company sells today.</strong> No date has been given for when it starts. <span class="src">Q1FY27 call · 10 Aug 26</span></p>
+    <p><strong>The first real money arrives in FY27 and is already visible.</strong> Making medicines for other companies (CDMO) is now half of all sales, and the profit left from each ₹100 of sales rose by ₹2.76 in the June quarter (margin, +276 bps).</p>
+    <p><strong>What breaks it:</strong> this management has delivered only 6 of the 18 promises that have actually come due. <strong>Read every date here as one to two years later than stated.</strong></p>
+  </div>
+</section>
+
+<section id="s1">
+  <div class="shead"><span class="snum">S1</span><h2>Snapshot</h2><span class="sub">what the business is</span></div>
+  <div class="snapgrid">
+    <div class="card">
+      <p style="margin-top:0;font-size:13.6px">Gland makes injectable medicines — the kind that go into a drip or a syringe — mostly for <em>other</em> pharmaceutical companies, who then sell them under their own label. <span class="t tf">[F]</span> It ships to 60-plus countries; the United States is 53–54% of sales. <span class="src">Business Overview · Jul 26</span></p>
+      <p style="font-size:13.3px"><strong>Where it sits in the chain:</strong> in the middle. <span class="t tf">[F]</span> It runs its own plants making the raw active ingredients, then manufactures the finished injectable. 13 of the top 15 US generic injectable companies are customers, with relationships averaging over eight years.</p>
+      <div class="callout">
+        <span class="ct">Is it actually special, or just a commodity?</span>
+        <span class="t to">[O]</span> <strong>Genuinely special — and the proof is in the margin, not the marketing.</strong> Generic injectables are a commodity where they are finally sold, but Gland does not sell there. <span class="t tf">[F]</span> It sells at a fixed price to a partner, so swings in raw-material costs and price wars land on the partner's slice, not Gland's. The real edge is its regulatory record: <span class="t tf">[F]</span> no US FDA warning letter at any plant, ever. <span class="t to">[O]</span> That is what wins work from companies who cannot risk a shutdown — and it is exactly what one bad inspection would destroy. <strong>So: read these triggers as structural, not as a passing boom — but the edge is only one inspection deep.</strong>
+      </div>
+    </div>
+    <div class="card">
+      <h3 style="font-size:13.5px;margin-bottom:8px">The owner has been selling</h3>
+      <p style="font-size:13.2px"><span class="t tf">[F]</span> Fosun Pharma of Shanghai bought about 74% in 2017. It now holds <strong>51.77%</strong>, having stepped down to 57.86% and then to 51.83% in a June 2024 block sale. <span class="src">BSE bulk deals · Jun 24</span></p>
+      <p style="font-size:13.2px"><span class="t tf">[F]</span> Flat for eight quarters since, with zero shares pledged as security. <span class="src">SEBI filing · 2 Apr 26</span></p>
+      <p style="font-size:13.2px"><span class="t to">[O]</span> A controlling owner that has sold twice, and once publicly explored exiting altogether (2022), is a standing overhang on the share price — not a red flag about the business.</p>
+      <div class="callout warn" style="margin-bottom:0">
+        <span class="ct">There is currently no CEO</span>
+        <span class="t tf">[F]</span> Mr Shyamakant Giri resigned on 30 April 2026; a successor is being sought. <span class="src">Forensic Report · Aug 26</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="s2">
+  <div class="shead"><span class="snum">S2</span><h2>Core growth triggers</h2><span class="sub">7 triggers · filter below</span></div>
+  <div class="chips" id="chips">
+    <span class="chiplbl">Conviction</span>
+    <button class="chip on" data-f="conv" data-v="all">All 7</button>
+    <button class="chip" data-f="conv" data-v="high">High 3</button>
+    <button class="chip" data-f="conv" data-v="med">Medium 3</button>
+    <button class="chip" data-f="conv" data-v="opt">Optionality 1</button>
+  </div>
+  <div class="chips" id="chips2">
+    <span class="chiplbl">Type</span>
+    <button class="chip on" data-f="cat" data-v="all">All</button>
+    <button class="chip" data-f="cat" data-v="contract">New contract</button>
+    <button class="chip" data-f="cat" data-v="margin">Margin &amp; mix</button>
+    <button class="chip" data-f="cat" data-v="product">New product</button>
+    <button class="chip" data-f="cat" data-v="turnaround">Turnaround</button>
+    <button class="chip" data-f="cat" data-v="capacity">Capacity</button>
+  </div>
+
+  <div class="grid" id="tgrid">
+
+    <article class="trig c-med wide" data-conv="med" data-cat="contract">
+      <div class="tt"><h3><span class="rank">01</span>New specialty pharma deal worth $90–100m</h3><span class="pill med">MEDIUM</span></div>
+      <div class="cat">New contract</div>
+      <div class="body">
+        <p><span class="t tf">[F]</span> On the Q1 FY27 call, management disclosed a strategic manufacturing and supply agreement signed with a global specialty pharmaceutical company, putting potential annual revenue at $90–100 million. <span class="src">Q1FY27 call · 10 Aug 26</span></p>
+        <p><span class="t tf">[F]</span> No commercialisation date, capex figure, product or customer name was given.</p>
+        <div class="impact">
+          <div class="il">Impact at full run-rate</div>
+          <div class="iv">₹860–955 cr / year</div>
+          <div class="idv">[E] $90–100m × ₹95.45 (11 Aug 26) · = 13–14% of ₹6,725 cr sales<br>Ramp-up profile NOT DISCLOSED</div>
+        </div>
+        <div class="meta"><span>Timeline: <b style="color:var(--red)">NOT DISCLOSED</b></span><span class="vnew">Vintage: NEW</span><span>Not in any uploaded doc</span></div>
+        <p style="font-size:12.6px;color:var(--mu)"><strong style="color:var(--tx)">Why medium, not high:</strong> the agreement itself is signed — that part is solid. But <strong style="color:var(--tx)">$90–100m is management's estimate of what it <em>could</em> become, not contracted volume</strong>, and with no date, no capex and no named product it cannot be treated as committed. <span class="t to">[O]</span> The contract is high conviction; the number is medium. <span class="t to">[O]</span> Similar deals here have taken ~2 years from signing to first sales, which would point to FY29.</p>
+      </div>
+      <div class="watch"><b>Watch for:</b> a disclosed start quarter, dedicated-line capex, or the contract appearing in an investor presentation with revenue phasing.</div>
+    </article>
+
+    <article class="trig c-high" data-conv="high" data-cat="margin">
+      <div class="tt"><h3><span class="rank">02</span>Contract manufacturing now half of sales</h3><span class="pill high">HIGH</span></div>
+      <div class="cat">Margin &amp; mix</div>
+      <div class="body">
+        <p><span class="t tf">[F]</span> CDMO revenue hit ₹891.5 cr in Q1 FY27 — <strong>50% of total sales</strong>, up from 46% in FY26, after growing 28% last year. <span class="src">Q1FY27 call · 10 Aug 26</span> <span class="t tf">[F]</span> Management expects a further $40–50m from new CDMO contracts in FY27, with long-term contracts on existing products signed against dedicated production lines.</p>
+        <div class="impact">
+          <div class="il">Impact in FY27</div>
+          <div class="iv">₹382–478 cr <span style="font-size:12px;color:var(--mu)">+276 bps margin</span></div>
+          <div class="idv">[E] $40–50m × ₹95.45 · ~6–7% of sales<br>[F] Margin 27.2% vs 24.4% a year ago, on 65% gross margin</div>
+        </div>
+        <div class="meta"><span>Timeline: <b style="color:var(--green)">in the P&amp;L now</b></span><span>Vintage: REPEATED, progressing</span></div>
+        <p style="font-size:12.6px;color:var(--mu)"><span class="t tf">[F]</span> FY27 margin was guided at 25–26%. <strong style="color:var(--tx)">Q1 came in at 27.2% — above the top of that range.</strong> <span class="t to">[O]</span> Either the guidance is deliberately cautious or Q1 was flattered by product mix; one more quarter settles it.</p>
+      </div>
+      <div class="watch"><b>Watch for:</b> CDMO holding above 50% in Q2 FY27 with margin still above 26%.</div>
+    </article>
+
+    <article class="trig c-high" data-conv="high" data-cat="product">
+      <div class="tt"><h3><span class="rank">03</span>US launches with exclusivity windows</h3><span class="pill high">HIGH</span></div>
+      <div class="cat">New product</div>
+      <div class="body">
+        <p><span class="t tf">[F]</span> 31 products were launched in the US in FY26, including Cangrelor with a 180-day exclusive window (a ~$122m market) and Norepinephrine ready-to-use bags with first-to-file exclusivity (~$55m market). Hospital-buying-group contracts began supplying from Q3 FY26, taking US revenue to $110m that quarter. <span class="src">Growth Catalysts · Jul 26</span> <span class="t tf">[F]</span> US revenue grew 32% year-on-year in Q1 FY27. <span class="src">Q1FY27 call · 10 Aug 26</span></p>
+        <div class="impact">
+          <div class="il">Impact</div>
+          <div class="iv" style="font-size:13px;color:var(--red)">IMPACT NOT QUANTIFIED</div>
+          <div class="idv">The $122m and $55m are <b>end-market sizes, not Gland's revenue</b> — its share of each is undisclosed, and multiplying them by a guessed share would be invention. What is measurable: US sales running at $110m a quarter, growing 32%.</div>
+        </div>
+        <div class="meta"><span>Timeline: <b style="color:var(--green)">in the P&amp;L now</b></span><span>Vintage: REPEATED, delivering</span></div>
+        <p style="font-size:12.6px;color:var(--mu)"><span class="t to">[O]</span> Exclusive windows are finite. A 180-day window opened in FY26 has largely closed by now, so <strong style="color:var(--tx)">this trigger decays unless it is refilled with new launches.</strong></p>
+      </div>
+      <div class="watch"><b>Watch for:</b> the FY27 launch count, and whether US growth holds above 20% once exclusivity lapses.</div>
+    </article>
+
+    <article class="trig c-med" data-conv="med" data-cat="turnaround">
+      <div class="tt"><h3><span class="rank">04</span>Cenexi turns from loss-maker to profit</h3><span class="pill med">MEDIUM</span></div>
+      <div class="cat">Turnaround</div>
+      <div class="body">
+        <p><span class="t tf">[F]</span> The French-Belgian unit bought in April 2023 did €182m of revenue in FY26, up 11%, and improved operating profit by €16m. <span class="t tf">[F]</span> FY27 revenue is guided at €200m with a high single-digit profit margin, targeting double-digit by year-end. <span class="src">Q1FY27 call · 10 Aug 26</span></p>
+        <div class="impact">
+          <div class="il">Impact in FY27</div>
+          <div class="iv">+₹191 cr sales · ~₹201 cr profit swing</div>
+          <div class="idv">[E] €200m − €182m = +€18m ≈ ₹191 cr<br>[E] 8% margin on €200m ≈ €16m vs −€3m last year = ~€19m swing ≈ ₹201 cr (EUR/INR ₹106.02, ECB 13 Mar 26)</div>
+        </div>
+        <div class="meta"><span>Timeline: FY27</span><span class="vslip">Vintage: SLIPPED</span></div>
+        <p style="font-size:12.6px"><b class="flag">⚠ Your two documents contradict each other.</b> The Growth Catalysts page says Cenexi turned profitable with €1m in Q4 FY26. The Guidance Report says Q3 hit €1m and <strong>the full year was −€3 million</strong>. Same date, different story — <strong>the full-year negative is the number that matters and the catalyst page leaves it out.</strong></p>
+        <p style="font-size:12.6px"><b class="flag">⚠ This target has slipped before.</b> <span class="t tf">[F]</span> Breakeven was promised for Q4 FY25, then moved to Q3 FY26. A separate €300m target was set for FY28 — <strong>getting from €200m to €300m in one year needs 50% growth against 11% delivered.</strong> <span class="t to">[O]</span> Treat the €300m as abandoned in all but name.</p>
+      </div>
+      <div class="watch"><b>Watch for:</b> two straight quarters of positive Cenexi profit, and whether the €300m FY28 target is restated or quietly dropped.</div>
+    </article>
+
+    <article class="trig c-high" data-conv="high" data-cat="contract">
+      <div class="tt"><h3><span class="rank">05</span>Nano Drug Delivery oncology contract</h3><span class="pill high">HIGH</span></div>
+      <div class="cat">New contract</div>
+      <div class="body">
+        <p><span class="t tf">[F]</span> A complex injectable cancer-drug contract using a Nano Drug Delivery System was signed with a large pharma company in FY26. Sales are expected from Q3–Q4 FY28, with estimated annual revenue of $25–30m, and roughly ₹80 cr of spending needed for a dedicated compounding area. <span class="src">Growth Catalysts · Jul 26</span> <span class="t tf">[F]</span> FY27 spending separately includes ₹165 cr for an oncology isolator line due to be installed in January 2027. <span class="src">Q1FY27 call · 10 Aug 26</span></p>
+        <div class="impact">
+          <div class="il">Impact at full run-rate</div>
+          <div class="iv">₹239–287 cr / year</div>
+          <div class="idv">[E] $25–30m × ₹95.45 · ~4% of sales</div>
+        </div>
+        <div class="meta"><span>Line install: Jan 2027</span><span>First sales: Q3–Q4 FY28</span><span>Vintage: REPEATED, progressing</span></div>
+        <p style="font-size:12.6px;color:var(--mu)"><strong style="color:var(--tx)">High conviction because</strong> the contract is signed, the money is committed, and there is now a dated equipment installation. <strong style="color:var(--tx)">One caution:</strong> the ₹80 cr compounding area and the ₹165 cr isolator line come from different documents and <span class="nd">it is not disclosed whether they are the same project</span> — do not add them together.</p>
+      </div>
+      <div class="watch"><b>Watch for:</b> confirmation the isolator was installed in Jan 2027, and first validation batches in FY28.</div>
+    </article>
+
+    <article class="trig c-med" data-conv="med" data-cat="capacity">
+      <div class="tt"><h3><span class="rank">06</span>₹2,000 cr five-year building programme</h3><span class="pill med">MEDIUM</span></div>
+      <div class="cat">Capacity</div>
+      <div class="body">
+        <p><span class="t tf">[F]</span> The Board has approved a five-year ₹2,000 cr plan for the core business — new vial lines, freeze-dryers, blow-fill-seal technology, eye-drop capability and warehousing. Management guides that every ₹1 invested should generate more than ₹3 of annual sales (asset turnover &gt;3×). Freeze-drying capacity was projected to run out within 1–1.5 years without this. <span class="src">Growth Catalysts · Jul 26</span> <span class="t tf">[F]</span> ₹113.2 cr was spent in Q1 FY27; with ₹3,294 cr of net cash this is fully self-funded — <strong>no new shares needed.</strong></p>
+        <div class="impact">
+          <div class="il">Ceiling, not a forecast</div>
+          <div class="iv">up to ₹6,000 cr of sales</div>
+          <div class="idv">[E] ₹2,000 cr × 3× asset turnover — nearly the size of the whole company today, but spread over 5+ years and <b>no ramp-up schedule has been disclosed</b></div>
+        </div>
+        <div class="meta"><span>Timeline: FY27–FY31</span><span>First capacity: FY28–29</span><span>Vintage: REPEATED, revised up</span></div>
+        <p style="font-size:12.6px"><b class="flag">⚠ Three different FY27 numbers, resolved newest-wins.</b> ₹500 cr (Guidance Report), "&gt;₹400 cr" (Growth Catalysts), and <strong>₹550 cr (Q1 FY27 call, 10 Aug 26)</strong> — the ₹550 cr figure supersedes both. <span class="t to">[O]</span> Rising capex this early usually signals confidence, but it is also the pattern that preceded FY24–25, when heavy spending arrived before the revenue and <strong>return on capital fell from 25% to 12%.</strong></p>
+      </div>
+      <div class="watch"><b>Watch for:</b> quarterly spend against the ₹550 cr, and whether return on capital climbs back past 15% as the FY24 spending finally converts.</div>
+    </article>
+
+    <article class="trig c-opt" data-conv="opt" data-cat="product">
+      <div class="tt"><h3><span class="rank">07</span>Dalbavancin US approval</h3><span class="pill opt">OPTIONALITY</span></div>
+      <div class="cat">New product</div>
+      <div class="body">
+        <p><span class="t tf">[F]</span> Dalbavancin launched in six European countries in December 2025. The US approval had a target decision date of February 2026 and <strong>was still pending as of the Q3 FY26 call</strong>. <span class="src">Growth Catalysts · Jul 26</span> <span class="t tf">[F]</span> No document here, including the 10 August 2026 results, resolves the current status.</p>
+        <div class="impact">
+          <div class="il">Impact</div>
+          <div class="iv" style="font-size:13px;color:var(--red)">IMPACT NOT QUANTIFIED</div>
+          <div class="idv">Awaiting the Q2 FY27 investor presentation or an approval announcement. No revenue figure, market size or launch economics has been disclosed for either region.</div>
+        </div>
+        <div class="meta"><span>Timeline: <b style="color:var(--red)">UNKNOWN</b></span><span class="vslip">Vintage: SLIPPED, unresolved</span></div>
+        <p style="font-size:12.6px;color:var(--mu)"><strong style="color:var(--tx)">Why optionality:</strong> Europe is live but unquantified, and the US decision is a yes/no event outside the company's control that is now materially past its target date. <span class="t to">[O]</span> <strong style="color:var(--tx)">Six months of silence after a missed FDA date is not neutral information.</strong> It becomes a medium-conviction trigger the moment approval is announced with a launch quarter.</p>
+      </div>
+      <div class="watch"><b>Watch for:</b> an FDA approval announcement, or any mention at all in the Q2 FY27 call. Continued silence is itself the answer.</div>
+    </article>
+
+  </div>
+</section>
+
+<section id="sc">
+  <div class="shead"><span class="snum">—</span><h2>When it lands, and how much</h2><span class="sub">2 charts</span></div>
+
+  <div class="chartbox">
+    <h3>When each trigger starts hitting profits</h3>
+    <div class="ch">Bars coloured by conviction. Grey = no date disclosed.</div>
+    <div class="cwrap tall"><canvas id="cTime"></canvas></div>
+    <div class="cap"><strong>Takeaway:</strong> the money that arrives in FY27 comes from things already running — contract manufacturing and the Cenexi turnaround. The single biggest trigger has no date at all.</div>
+  </div>
+
+  <div class="chartbox">
+    <h3>What the quantified triggers could add to sales</h3>
+    <div class="ch">Starting from ₹6,725 cr of sales over the last twelve months.</div>
+    <div class="cwrap"><canvas id="cBridge"></canvas></div>
+    <div class="cap"><strong>Takeaway:</strong> ₹1,791 cr of extra annual sales at the midpoint — about 27% more than today. <strong>This is a full run-rate ceiling, not a forecast.</strong> The pieces arrive across FY27–FY29 on ramp-ups that have not been disclosed, and one of them has no date. <b class="flag">Two triggers are excluded because they are not quantified</b> (US launches, Dalbavancin), and the ₹2,000 cr building programme is also excluded because it overlaps and spans 5+ years. <b class="flag">Triggers 1 and 2 may double-count</b> if the new specialty deal sits inside the guided $40–50m FY27 CDMO increment — not disclosed either way.</div>
+  </div>
+</section>
+
+<section id="s3">
+  <div class="shead"><span class="snum">S3</span><h2>What's already in the price</h2></div>
+  <div class="card">
+    <p style="margin-top:0"><span class="t tf">[F]</span> The share is at ₹2,891 against a 52-week range of ₹1,574–2,989 — up 50% in a year, and it touched a four-year high on results day. You pay ₹41.60 for every ₹1 of last year's profit (P/E 41.6×). <span class="t tf">[F]</span> After the results, Motilal Oswal rates it BUY with a ₹3,080 target, lifting FY27/28 estimates by 3%/4% and expecting profits to grow 21% a year to FY28; Jefferies is BUY at ₹3,350. <span class="src">Business Standard · 11 Aug 26</span></p>
+    <p><span class="t to">[O]</span> <strong>Consensus is already paying for the contract-manufacturing shift and the margin recovery</strong> — that is what 21% profit growth on 30× forward earnings assumes, and both brokers wrote after seeing Q1.</p>
+    <div class="callout" style="border-left-color:var(--amber);background:rgba(240,165,0,.06)">
+      <span class="ct">Where the surprise could come from</span>
+      Two things are <strong>not</strong> in those forecasts: the <strong>$90–100m specialty pharma contract</strong>, disclosed the same day and too new and too undated to model; and <strong>any GLP-1 contribution</strong>, which <span class="t tf">[F]</span> FY27 guidance explicitly excludes and which management has now pushed out to "later in the decade". <span class="t to">[O]</span> With targets only ~6% above the current price, the street sees the re-rating as largely done. The variant view is that one undated contract is worth 13–14% of sales.
+    </div>
+  </div>
+</section>
+
+<section id="s4">
+  <div class="shead"><span class="snum">S4</span><h2>Risks to the trigger thesis</h2><span class="sub">what breaks these specific triggers</span></div>
+  <ul class="risks">
+    <li><b class="h">The delivery record undercuts every medium-conviction trigger — hits 1, 4 and 6</b>
+      <span class="t tf">[F]</span> Of 29 tracked promises, 18 have come due: <strong>6 delivered, 6 partly delivered, 6 missed.</strong> <span class="src">Guidance Report · Jul 26</span> Misses include Sputnik V production, China filings (7 of 12), enoxaparin volumes and FY22 US growth. <span class="t to">[O]</span> Slippage of a year or more is the base case here, not the downside case.</li>
+    <li><b class="h">The edge is one FDA letter deep, and there is smoke — hits 1, 2 and 5 at once</b>
+      <span class="t tf">[F]</span> A Form 483 with three observations was issued at the Visakhapatnam plant in February 2025, and the French regulator issued 11 observations at Cenexi Fontenay in June 2025. <span class="src">Forensic Report · Aug 26</span> <span class="t to">[O]</span> Both were procedural and neither disrupted operations — but the entire contract-manufacturing thesis rests on a spotless record.</li>
+    <li><b class="h">Sales are turning into unpaid bills, and one customer is getting large</b>
+      <span class="t tf">[F]</span> Customers now take 107 days to pay, up from 99. Money owed by customers grew 127% over five years to ₹1,520.69 cr, and one customer alone is 20.15% of it. Revenue recognition has been the auditor's flagged focus area every year from FY21 to FY26. <span class="src">Forensic Report · Aug 26</span> <span class="t to">[O]</span> Growth that arrives as unpaid bills rather than cash is the specific way a contract-manufacturing ramp can look better than it is.</li>
+    <li><b class="h">Cenexi goodwill is being tested against harder assumptions with nothing written off — hits 4</b>
+      <span class="t tf">[F]</span> ₹2,938.70m of goodwill sits entirely on the Phixen unit, which has been loss-making at the operating level. The discount rate used to test it rose from 10.3% to 12.6% while assumed long-run growth was cut from 2.5% to 2.0% — and no write-down has ever been taken. Next test: 31 March 2027. <span class="src">Forensic Report · Aug 26</span></li>
+    <li><b class="h">There is no CEO — and this is the most likely way the dates move again</b>
+      <span class="t tf">[F]</span> Mr Shyamakant Giri resigned on 30 April 2026 and a successor is being sought. <span class="t to">[O]</span> A ₹2,000 cr building programme and a new flagship contract are both being run under interim command. Whoever arrives may reset the guidance.</li>
+  </ul>
+</section>
+
+<section id="s5">
+  <div class="shead"><span class="snum">S5</span><h2>Trigger scoreboard</h2><span class="sub">tap a heading to sort</span></div>
+  <div class="tblwrap">
+    <table id="board">
+      <thead><tr>
+        <th data-s="0">#</th><th class="nos">Trigger</th><th class="nos">Revenue / earnings impact</th><th data-s="3">Timeline</th><th data-s="4">Conviction</th>
+      </tr></thead>
+      <tbody>
+        <tr data-o="1" data-tl="9" data-cv="2"><td class="num">1</td><td>Specialty pharma supply deal</td><td class="num">₹860–955 cr/yr <span class="t te">[E]</span></td><td class="num">Not disclosed</td><td><span class="pill med">MEDIUM</span></td></tr>
+        <tr data-o="2" data-tl="1" data-cv="3"><td class="num">2</td><td>CDMO now 50% of sales</td><td class="num">₹382–478 cr + 276 bps</td><td class="num">In P&amp;L now</td><td><span class="pill high">HIGH</span></td></tr>
+        <tr data-o="3" data-tl="1" data-cv="3"><td class="num">3</td><td>US launches with exclusivity</td><td class="num" style="color:var(--red)">Not quantified · US $110m/qtr</td><td class="num">In P&amp;L now</td><td><span class="pill high">HIGH</span></td></tr>
+        <tr data-o="4" data-tl="2" data-cv="2"><td class="num">4</td><td>Cenexi loss → profit</td><td class="num">+₹191 cr sales · ~₹201 cr profit</td><td class="num">FY27</td><td><span class="pill med">MEDIUM</span></td></tr>
+        <tr data-o="5" data-tl="4" data-cv="3"><td class="num">5</td><td>Nano oncology CDMO contract</td><td class="num">₹239–287 cr/yr <span class="t te">[E]</span></td><td class="num">Q3–Q4 FY28</td><td><span class="pill high">HIGH</span></td></tr>
+        <tr data-o="6" data-tl="5" data-cv="2"><td class="num">6</td><td>₹2,000 cr capex cycle</td><td class="num">≤₹6,000 cr at full use <span class="t te">[E]</span></td><td class="num">FY28–31</td><td><span class="pill med">MEDIUM</span></td></tr>
+        <tr data-o="7" data-tl="9" data-cv="1"><td class="num">7</td><td>Dalbavancin US approval</td><td class="num" style="color:var(--red)">Not quantified</td><td class="num">Unknown</td><td><span class="pill opt">OPTIONALITY</span></td></tr>
+        <tr class="total"><td class="num">—</td><td>Quantified total</td><td class="num" style="color:var(--amber)">₹1,672–1,911 cr/yr = 25–28% of sales</td><td class="num">FY27–FY29</td><td class="num" style="font-size:10.5px;color:var(--mu)">4 of 7 quantified</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="font-size:12.4px;color:var(--mu);margin-top:10px"><b class="flag">Do not read the total as a forecast.</b> It sums full run-rate potentials landing across FY27–FY29 on ramp-ups that have not been disclosed, two of them undated. Triggers 1 and 2 may overlap.</p>
+</section>
+
+<section id="s6">
+  <footer>
+    <div class="fgrid">
+      <div class="fbox">
+        <h3>Documents read</h3>
+        <p style="margin:0">Business Overview (Jul 26) · Guidance Report (Jul 26, 29 items FY21–FY26) · Growth Catalysts (Jul 26) · Forensic Report (Aug 26). All four are SOIC × StockScans compilations — one step removed from primary transcripts.</p>
+        <h3 style="margin-top:12px">Checked for anything newer</h3>
+        <p style="margin:0">Screener consolidated (12 Aug 26) — all snapshot figures. <strong>Q1 FY27 results and earnings call (10 Aug 26)</strong> — triggers 1, 2, 4, 6 and the margin data; this post-dates every uploaded document. Business Standard / Investing.com (11 Aug 26) — broker views. BSE bulk deals (Jun 24) — ownership. BookMyForex (11 Aug 26) and ECB (13 Mar 26) — exchange rates.</p>
+      </div>
+      <div class="fbox">
+        <h3>Where sources disagreed</h3>
+        <p style="margin:0">Resolved newest-source-wins: FY27 capex ₹400 / ₹500 / <strong>₹550 cr</strong> → ₹550 cr · CDMO share 46% → <strong>50%</strong> · Cenexi FY26 profit "positive €1m in Q4" vs <strong>"−€3m full year"</strong> → both shown, full-year figure carried.</p>
+        <h3 style="margin-top:12px">Still missing</h3>
+        <p style="margin:0">Dalbavancin US approval status · margin split between core business and Cenexi · how Cenexi gets to €300m · the specialty pharma contract's timing, product and capex · utilisation ramp on the ₹2,000 cr programme · Gland's own share of the Cangrelor and Norepinephrine markets.</p>
+      </div>
+    </div>
+    <div class="contract">
+      <strong>How to read this:</strong> every number carries a source and a date. Figures we worked out ourselves are marked <span class="t te">[E]</span> with the sum shown, so you can check them. Anything the company has not disclosed says <span class="nd">NOT DISCLOSED</span> rather than being estimated. Anything management said about the future is labelled as guidance, never as fact. Exchange rates used: USD/INR ₹95.45 (11 Aug 26), EUR/INR ₹106.02 (ECB 13 Mar 26 — five months old, so euro conversions drift).
+      <br><br>For research only. Not investment advice.
+    </div>
+  </footer>
+</section>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- filters ---------- */
+  var filt={conv:"all",cat:"all"};
+  var cards=Array.prototype.slice.call(document.querySelectorAll(".trig"));
+  function applyFilter(){
+    cards.forEach(function(c){
+      var okC=(filt.conv==="all")||(c.getAttribute("data-conv")===filt.conv);
+      var okT=(filt.cat==="all")||(c.getAttribute("data-cat")===filt.cat);
+      if(okC&&okT){c.classList.remove("hide");}else{c.classList.add("hide");}
+    });
+  }
+  Array.prototype.slice.call(document.querySelectorAll(".chip")).forEach(function(btn){
+    btn.addEventListener("click",function(){
+      var grp=btn.getAttribute("data-f");
+      filt[grp]=btn.getAttribute("data-v");
+      Array.prototype.slice.call(document.querySelectorAll('.chip[data-f="'+grp+'"]')).forEach(function(o){o.classList.remove("on");});
+      btn.classList.add("on");
+      applyFilter();
+    });
+  });
+
+  /* ---------- nav active state ---------- */
+  var navLinks=Array.prototype.slice.call(document.querySelectorAll("#navbar a"));
+  var sects=navLinks.map(function(a){return document.getElementById(a.getAttribute("data-t"));});
+  var navObs=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(!en.isIntersecting) return;
+      navLinks.forEach(function(a){
+        var hit=(a.getAttribute("data-t")===en.target.id);
+        if(hit){a.classList.add("on");
+          if(a.parentNode.scrollWidth>a.parentNode.clientWidth){
+            a.scrollIntoView({behavior:"smooth",block:"nearest",inline:"center"});
+          }
+        } else {a.classList.remove("on");}
+      });
+    });
+  },{rootMargin:"-45% 0px -50% 0px",threshold:0});
+  sects.forEach(function(s){if(s) navObs.observe(s);});
+
+  /* ---------- table sort ---------- */
+  var tbl=document.getElementById("board");
+  var tb=tbl.querySelector("tbody");
+  var totalRow=tb.querySelector("tr.total");
+  var dirUp=true;
+  Array.prototype.slice.call(tbl.querySelectorAll("th[data-s]")).forEach(function(th){
+    th.addEventListener("click",function(){
+      var col=th.getAttribute("data-s");
+      var attr=(col==="0")?"data-o":(col==="3"?"data-tl":"data-cv");
+      var rows=Array.prototype.slice.call(tb.querySelectorAll("tr[data-o]"));
+      dirUp=!dirUp;
+      rows.sort(function(a,b){
+        var x=parseInt(a.getAttribute(attr),10), y=parseInt(b.getAttribute(attr),10);
+        return dirUp?(x-y):(y-x);
+      });
+      rows.forEach(function(r){tb.appendChild(r);});
+      tb.appendChild(totalRow);
+    });
+  });
+
+  /* ---------- charts ---------- */
+  if(typeof Chart==="undefined") return;
+  Chart.defaults.font.family="'JetBrains Mono',monospace";
+  Chart.defaults.font.size=10;
+  Chart.defaults.color="#8a94a6";
+
+  var GREEN="#37d39b", AMBER="#f0a500", PURPLE="#b48cff", GREY="#3a465c", BLUE="#5aa9ff";
+
+  var QLBL=["Q1FY27","Q2FY27","Q3FY27","Q4FY27","Q1FY28","Q2FY28","Q3FY28","Q4FY28","Q1FY29","Q2FY29","Q3FY29","Q4FY29"];
+
+  var barLabel={
+    id:"barLabel",
+    afterDatasetsDraw:function(chart){
+      var ctx=chart.ctx;
+      chart.data.datasets.forEach(function(ds,di){
+        if(ds.noLabel) return;
+        var meta=chart.getDatasetMeta(di);
+        if(meta.hidden) return;
+        meta.data.forEach(function(el,i){
+          var txt=ds.valueLabels?ds.valueLabels[i]:null;
+          if(!txt) return;
+          ctx.save();
+          ctx.font="700 10px 'JetBrains Mono',monospace";
+          ctx.fillStyle=ds.labelColor||"#e8edf6";
+          ctx.textBaseline="middle";
+          if(chart.options.indexAxis==="y"){
+            ctx.textAlign="left";
+            ctx.fillText(txt, el.x+(el.width/2)+6, el.y);
+          } else {
+            ctx.textAlign="center";
+            ctx.fillText(txt, el.x, el.y-8);
+          }
+          ctx.restore();
+        });
+      });
+    }
+  };
+
+  var drawn={};
+
+  function drawTimeline(){
+    var el=document.getElementById("cTime");
+    if(!el) return;
+    var rows=[
+      {n:"1 · Specialty pharma deal",     span:[0,12], c:GREY,   lbl:"no date disclosed"},
+      {n:"2 · CDMO 50% of sales",         span:[0,12], c:GREEN,  lbl:"running now"},
+      {n:"3 · US exclusivity launches",   span:[0,7],  c:GREEN,  lbl:"decays as windows close"},
+      {n:"4 · Cenexi turnaround",         span:[0,4],  c:AMBER,  lbl:"FY27"},
+      {n:"5 · Nano oncology contract",    span:[6,12], c:GREEN,  lbl:"from Q3FY28"},
+      {n:"6 · ₹2,000 cr capex",           span:[4,12], c:AMBER,  lbl:"FY28 onward"},
+      {n:"7 · Dalbavancin US",            span:[0,12], c:GREY,   lbl:"status unknown"}
+    ];
+    new Chart(el,{
+      type:"bar",
+      data:{
+        labels:rows.map(function(r){return r.n;}),
+        datasets:[{
+          data:rows.map(function(r){return r.span;}),
+          backgroundColor:rows.map(function(r){return r.c+"cc";}),
+          borderColor:rows.map(function(r){return r.c;}),
+          borderWidth:1,
+          borderSkipped:false,
+          borderRadius:4,
+          barPercentage:.62,
+          valueLabels:rows.map(function(r){return r.lbl;}),
+          labelColor:"#8a94a6"
+        }]
+      },
+      options:{
+        indexAxis:"y",
+        responsive:true,maintainAspectRatio:false,
+        layout:{padding:{right:118}},
+        plugins:{legend:{display:false},tooltip:{enabled:false}},
+        scales:{
+          x:{min:0,max:12,grid:{color:"rgba(23,35,59,.85)"},
+             ticks:{stepSize:1,autoSkip:false,maxRotation:60,minRotation:60,
+               callback:function(v){return QLBL[v]||"";}}},
+          y:{grid:{display:false},ticks:{font:{size:10.5}}}
+        }
+      }
+    });
+  }
+
+  function drawBridge(){
+    var el=document.getElementById("cBridge");
+    if(!el) return;
+    var base=6725, cdmo=430, cen=191, nano=263, spec=907;
+    var a=base, b=a+cdmo, c=b+cen, d=c+nano, e=d+spec;
+    var steps=[
+      {n:"Sales today",        span:[0,base], c:BLUE,   lbl:"6,725"},
+      {n:"+ CDMO FY27",        span:[a,b],    c:GREEN,  lbl:"+430"},
+      {n:"+ Cenexi FY27",      span:[b,c],    c:AMBER,  lbl:"+191"},
+      {n:"+ Nano FY28",        span:[c,d],    c:GREEN,  lbl:"+263"},
+      {n:"+ Specialty deal",   span:[d,e],    c:AMBER,  lbl:"+907"},
+      {n:"Potential",          span:[0,e],    c:PURPLE, lbl:"8,516"}
+    ];
+    new Chart(el,{
+      type:"bar",
+      data:{
+        labels:steps.map(function(s){return s.n;}),
+        datasets:[{
+          data:steps.map(function(s){return s.span;}),
+          backgroundColor:steps.map(function(s){return s.c+"bb";}),
+          borderColor:steps.map(function(s){return s.c;}),
+          borderWidth:1,borderSkipped:false,borderRadius:3,barPercentage:.72,
+          valueLabels:steps.map(function(s){return s.lbl;}),
+          labelColor:"#e8edf6"
+        }]
+      },
+      options:{
+        responsive:true,maintainAspectRatio:false,
+        layout:{padding:{top:18}},
+        plugins:{legend:{display:false},tooltip:{enabled:false}},
+        scales:{
+          x:{grid:{display:false},ticks:{maxRotation:38,minRotation:38,font:{size:9.5}}},
+          y:{beginAtZero:true,max:9400,grid:{color:"rgba(23,35,59,.85)"},
+             ticks:{callback:function(v){return "₹"+(v/1000).toFixed(1)+"k cr";}}}
+        }
+      }
+    });
+  }
+
+  var chartObs=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(!en.isIntersecting) return;
+      var cid=en.target.id;
+      if(drawn[cid]) return;
+      drawn[cid]=true;
+      if(cid==="cTime") drawTimeline();
+      if(cid==="cBridge") drawBridge();
+    });
+  },{rootMargin:"120px 0px",threshold:0.01});
+  ["cTime","cBridge"].forEach(function(cid){
+    var cv=document.getElementById(cid);
+    if(cv) chartObs.observe(cv);
+  });
+
+  Chart.register(barLabel);
+})();
+</script>
+</body>
+</html>
