@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gland Pharma — Hard to Replace?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{--bg:#04080f;--panel:#0a1220;--bd:#17233b;--accent:#f0a500;--tx:#e8edf6;--mut:#8a94a6;--faint:#5a6577;--red:#ff5964;--green:#37d39b;--blue:#5aa9ff;--purple:#b48cff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:'DM Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:'Syne',sans-serif;margin:0}
+.mono{font-family:'JetBrains Mono',monospace}
+header{padding:22px 16px 14px;border-bottom:1px solid var(--bd);background:linear-gradient(180deg,#07101d,#04080f)}
+header .eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+header h1{font-size:24px;font-weight:800;margin-top:6px;line-height:1.15}
+header p{color:var(--mut);font-size:13.5px;margin:8px 0 0;max-width:760px;line-height:1.55}
+.badge{display:inline-block;margin-top:12px;padding:6px 12px;border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;background:rgba(240,165,0,.12);border:1px solid rgba(240,165,0,.45);color:var(--accent)}
+nav{position:sticky;top:0;z-index:20;background:rgba(4,8,15,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--bd);overflow-x:auto;-ms-overflow-style:none;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+.tabs{display:flex;gap:2px;padding:0 10px;min-width:max-content}
+.tab{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--mut);background:none;border:0;border-bottom:2px solid transparent;padding:14px 12px;cursor:pointer;white-space:nowrap}
+.tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+.kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;padding:14px 16px 4px}
+.kpi{background:var(--panel);border:1px solid var(--bd);border-radius:12px;padding:12px}
+.kpi .l{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+.kpi .v{font-family:'JetBrains Mono',monospace;font-size:19px;font-weight:700;margin-top:5px}
+.kpi .s{font-size:11px;color:var(--mut);margin-top:3px}
+main{padding:10px 16px 60px;max-width:1000px;margin:0 auto}
+.panel{display:none}.panel.active{display:block}
+.sect-title{font-size:19px;font-weight:700;margin-top:14px}
+.sect-desc{color:var(--mut);font-size:13px;margin:6px 0 14px;line-height:1.5}
+.card{background:var(--panel);border:1px solid var(--bd);border-radius:14px;padding:15px;margin-bottom:12px}
+.card h3{font-size:14.5px;font-weight:700;margin-bottom:8px}
+.card p{font-size:13.5px;line-height:1.65;color:#cfd7e4;margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+ul{margin:0;padding-left:18px}
+li{font-size:13.5px;line-height:1.7;color:#cfd7e4;margin-bottom:7px}
+li b{color:var(--tx)}
+.callout{border-left:3px solid var(--accent);background:rgba(240,165,0,.07);border-radius:0 10px 10px 0;padding:12px 14px;margin:12px 0;font-size:13.5px;line-height:1.6}
+.callout.red{border-left-color:var(--red);background:rgba(255,89,100,.07)}
+.callout.green{border-left-color:var(--green);background:rgba(55,211,155,.07)}
+.callout.blue{border-left-color:var(--blue);background:rgba(90,169,255,.07)}
+.callout b{color:var(--tx)}
+blockquote{margin:10px 0;padding:12px 14px;border-left:3px solid var(--purple);background:rgba(180,140,255,.06);border-radius:0 10px 10px 0;font-size:13px;line-height:1.65;color:#cfd7e4;font-style:italic}
+.tw{overflow-x:auto;margin:10px 0;border:1px solid var(--bd);border-radius:12px}
+table{border-collapse:collapse;width:100%;min-width:520px}
+th{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);text-align:left;padding:10px 12px;background:#08101c;border-bottom:1px solid var(--bd)}
+td{padding:10px 12px;font-size:12.8px;border-bottom:1px solid rgba(23,35,59,.7);color:#cfd7e4;vertical-align:top}
+td.n{font-family:'JetBrains Mono',monospace}
+tr:last-child td{border-bottom:0}
+.pos{color:var(--green)}.neg{color:var(--red)}
+.nd{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.06em;padding:3px 8px;border-radius:999px;background:rgba(255,89,100,.14);color:var(--red)}
+.chartbox{background:var(--panel);border:1px solid var(--bd);border-radius:14px;padding:14px;margin-bottom:12px}
+.chartbox h3{font-size:13.5px;margin-bottom:4px}
+.chartbox .cap{font-size:11.5px;color:var(--faint);margin-bottom:10px}
+.wrap{position:relative;height:260px}
+.src{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--faint);margin-top:8px}
+.flow{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:10px 0}
+.flow span{font-family:'JetBrains Mono',monospace;font-size:10.5px;padding:7px 10px;border:1px solid var(--bd);border-radius:8px;background:#08101c}
+.flow i{color:var(--accent);font-style:normal}
+@media(min-width:900px){.kpis{grid-template-columns:repeat(4,1fr)}.tabs{justify-content:center}header h1{font-size:30px}main{padding-left:24px;padding-right:24px}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">Report → Dashboard · NSE/BSE</div>
+  <h1>Gland Pharma</h1>
+  <p>The right test is not "will the stock rise" but "how hard is it to replace as a supplier." On that test Gland scores high — zero USFDA warning letters since inception, a vertically integrated sterile-injectables base, and a B2B model wired into global pharma supply chains.</p>
+  <div class="badge">Verdict · Built to be hard to replace</div>
+</header>
+
+<nav><div class="tabs" id="tabs"></div></nav>
+
+<div class="kpis">
+  <div class="kpi"><div class="l">USFDA warning letters</div><div class="v" style="color:var(--green)">Zero</div><div class="s">across all plants, since inception</div></div>
+  <div class="kpi"><div class="l">FY26 Revenue</div><div class="v">₹6,431 cr</div><div class="s">+14.5% year on year</div></div>
+  <div class="kpi"><div class="l">FY26 Return on capital</div><div class="v">14.1%</div><div class="s">up from 11.7% in FY25</div></div>
+  <div class="kpi"><div class="l">Cash cycle</div><div class="v" style="color:var(--red)">255 days</div><div class="s">inventory-driven, not customers</div></div>
+</div>
+
+<main>
+
+<!-- VERDICT -->
+<section class="panel active" id="p0">
+  <h2 class="sect-title">The one-line answer</h2>
+  <p class="sect-desc">Strong on replaceability. The caveats sit in the financial battery and in what the disclosures don't say.</p>
+
+  <div class="callout"><b>Verdict:</b> Gland is genuinely hard to replace as a supplier. Zero USFDA warning letters since inception, a vertically integrated sterile-injectables base, and a business-to-business model that ties it into the supply chains of global pharmaceutical leaders.</div>
+
+  <div class="callout red"><b>The caveats:</b> return ratios that are solid but not spectacular, a cash-conversion cycle stretching to 255 days, and thin disclosure on customers, the Fosun relationship, and the Cenexi drag.</div>
+
+  <div class="card">
+    <h3>What makes replacement hard</h3>
+    <ul>
+      <li><b>The industry itself is the first barrier</b> — sterile injectables need heavy capital, complex manufacturing and strict compliance.</li>
+      <li><b>The USFDA record is the hard currency of trust</b> — and 37% of the workforce sits in quality control and assurance.</li>
+      <li><b>Breadth of formats</b> — a customer leaving would have to re-qualify multiple suppliers across vials, syringes, ampoules, bags and more, each needing its own regulatory approval.</li>
+      <li><b>Tech transfer is embedded</b> as both a revenue line and a retention mechanism.</li>
+    </ul>
+  </div>
+
+  <div class="callout blue"><b>The honest limit of this analysis:</b> three material questions returned nothing in the evidence pool — the Fosun Pharma relationship, the CEO transition, and forensic findings around receivables and goodwill. The disclosed record is clean, but the analysis can neither confirm nor refute the overhang.</div>
+</section>
+
+<!-- VALUE CHAIN -->
+<section class="panel" id="p1">
+  <h2 class="sect-title">Value chain: molecule to patient</h2>
+  <p class="sect-desc">From in-house active ingredients through flexible fill lines to high-value presentations.</p>
+
+  <div class="flow"><span>API (in-house)</span><i>→</i><span>Flexible fill lines</span><i>→</i><span>High-value presentations</span><i>→</i><span>B2B customer</span></div>
+
+  <div class="card">
+    <h3>Active ingredients — largely in-house</h3>
+    <p>Three of Gland's seven plants are API facilities (the API is the molecule that actually does the work in a drug) supporting finished formulation. The company says this enhances supply chain security, improves cost structures and ensures quality at every stage of production. The flagship Dundigal site houses an API facility with an R&amp;D pilot plant — evidence of in-house development at pilot scale.</p>
+  </div>
+
+  <div class="card">
+    <h3>Flexible manufacturing is the conversion layer</h3>
+    <ul>
+      <li><b>32 production lines</b> across vials, lyophilised (freeze-dried) vials, ampoules, pre-filled syringes, bags and ophthalmics.</li>
+      <li><b>Dundigal capacity alone:</b> 22 crore vials/year, 12 crore ampoules, 2 crore pre-filled syringes, 1.5 crore bags, 8.5 crore suspensions and emulsions.</li>
+      <li><b>Deliberately interchangeable:</b> flexible lines allow capacity to scale and the portfolio to diversify without significant structural changes.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>End product — the high-value presentation</h3>
+    <p>The stated strategy is to move toward higher-value presentations such as vials, ophthalmic gels and pre-filled syringes with higher net revenue per unit, to drive customer acquisition and new launches.</p>
+    <p>The business runs five revenue models: B2B intellectual-property-led (own or partner filing), tech transfer, contract manufacturing, and business-to-consumer in India.</p>
+  </div>
+
+  <div class="callout red"><b>A disclosure gap:</b> the evidence pool does not disclose vial or syringe procurement, or equipment suppliers — <span class="nd">NOT DISCLOSED</span>. The moat claim rests on API integration and manufacturing flexibility, not on component self-sufficiency.</div>
+</section>
+
+<!-- MOAT -->
+<section class="panel" id="p2">
+  <h2 class="sect-title">The moat that compounds</h2>
+  <p class="sect-desc">Why replacing Gland is slow, expensive and risky for a customer.</p>
+
+  <blockquote>High capital investments, operational cost, manufacturing complexities, stricter compliance requirements due to the sterile nature of products and high-quality standards lead to natural entry barrier in the industry. Injectables have a more concentrated market than other segments due to their inherent complexity. — Gland FY22 report</blockquote>
+
+  <div class="card">
+    <h3>That concentration is real</h3>
+    <p>Among the US generic market's top 50 companies, 17 are Indian players holding roughly 41% of the top-50 prescriptions, and the top 50 collectively hold about 92% of the market.</p>
+  </div>
+
+  <div class="card">
+    <h3>The regulatory record</h3>
+    <blockquote>Our robust track record, marked by zero USFDA warning letters across all facilities since inception, reflects this unwavering commitment. Approximately 37% of our workforce is dedicated to quality control and assurance, demonstrating the scale of our investment in upholding global standards.</blockquote>
+    <ul>
+      <li>FY25 compliance receipts: Establishment Inspection Reports received.</li>
+      <li>Base business grew 4% in volume (9% in the US), with new products contributing 6% of revenue.</li>
+      <li>A three-pronged quality approach governs production under current Good Manufacturing Practice.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>Breadth raises the cost of leaving</h3>
+    <p>The portfolio spans liquid vials, lyophilised vials, pre-filled syringes, ampoules, infusion bags, ophthalmic products and sophisticated cartridge delivery. A customer walking away would have to re-qualify several new suppliers across formats — each requiring its own regulatory approval and technology transfer.</p>
+  </div>
+
+  <div class="card">
+    <h3>Tech transfer is embedded, not optional</h3>
+    <p>A dedicated manufacturing science and technology team runs gap analysis, method transfers, validations, trial and submission batches, stability studies and dossier preparation, with a strong track record of multiple CBE-30 filings and approvals. This is a revenue line and a retention mechanism in one.</p>
+  </div>
+
+  <div class="card">
+    <h3>Europe, via Cenexi</h3>
+    <blockquote>This milestone localised our manufacturing and development footprint directly within Europe, transforming Gland Pharma into a truly end-to-end, multi-geography partner of global pharmaceutical leaders.</blockquote>
+  </div>
+
+  <div class="callout red"><b>Customer concentration: <span class="nd">NOT DISCLOSED</span>.</b> No top-customer revenue share appears in the evidence; the base is described only qualitatively across 60 countries. That is a genuine unknown for a business-to-business model.</div>
+</section>
+
+<!-- FINANCIALS -->
+<section class="panel" id="p3">
+  <h2 class="sect-title">Financial battery</h2>
+  <p class="sect-desc">Returns are modest but inflecting; working capital is the structural bind.</p>
+
+  <div class="chartbox">
+    <h3>Revenue and margin</h3>
+    <div class="cap">Revenue in ₹ crore (bars) against operating margin and return on capital in % (lines)</div>
+    <div class="wrap"><canvas id="cRev"></canvas></div>
+    <div class="src">Source: Reported financials</div>
+  </div>
+
+  <div class="tw"><table>
+    <tr><th>Period</th><th>Revenue (₹ cr)</th><th>Growth</th><th>Op. margin</th><th>ROCE</th><th>Inventory days</th><th>Cash cycle</th></tr>
+    <tr><td class="n">FY23</td><td class="n">3,624.6</td><td class="n neg">-17.6%</td><td class="n">28.3%</td><td class="n">13.3%</td><td class="n neg">421</td><td class="n neg">382</td></tr>
+    <tr><td class="n">FY24</td><td class="n">5,664.7</td><td class="n pos">+56.3%</td><td class="n">23.5%</td><td class="n">12.7%</td><td class="n">278</td><td class="n">250</td></tr>
+    <tr><td class="n">FY25</td><td class="n">5,616.5</td><td class="n neg">-0.9%</td><td class="n">22.6%</td><td class="n">11.7%</td><td class="n">294</td><td class="n">250</td></tr>
+    <tr><td class="n">FY26</td><td class="n">6,430.7</td><td class="n pos">+14.5%</td><td class="n">25.3%</td><td class="n pos">14.1%</td><td class="n">284</td><td class="n">255</td></tr>
+    <tr><td class="n">TTM</td><td class="n">6,725.3</td><td class="n">+4.6%</td><td class="n">26.0%</td><td class="n">—</td><td class="n">—</td><td class="n">—</td></tr>
+  </table></div>
+  <div class="src">Source: Reported financials. ROCE = return on capital employed. Cash cycle = days between paying for materials and collecting from customers.</div>
+
+  <div class="chartbox">
+    <h3>Money stuck in the pipe</h3>
+    <div class="cap">Inventory days and cash-conversion cycle, in days</div>
+    <div class="wrap"><canvas id="cCcc"></canvas></div>
+    <div class="src">Source: Reported financials</div>
+  </div>
+
+  <div class="callout red"><b>Working capital is the structural bind.</b> The cash cycle climbed to 255 days in FY26, from ~250 in FY24–FY25, after a 382-day peak in FY23. Inventory days (284) are the driver, while unpaid customer bills stay lean at about 107 days. The drag is the build-ahead-of-approval inventory cycle, not customer payment behaviour.</div>
+
+  <div class="callout green"><b>Returns are inflecting.</b> Return on capital improved to 14.1% in FY26 from 11.7% in FY25, and it is an explicit strategic pillar — management anchors capital allocation on growth, capability, efficiency and ROCE. The base business is markedly better than the group number: excluding Cenexi, FY25 base revenue was ₹4,124.8 crore at a 35% EBITDA margin.</div>
+</section>
+
+<!-- CAPEX -->
+<section class="panel" id="p4">
+  <h2 class="sect-title">The ₹2,000 crore bet</h2>
+  <p class="sect-desc">A multi-year brownfield programme designed to support growth beyond the next three to five years.</p>
+
+  <div class="card">
+    <h3>The spending frame</h3>
+    <p>Management describes a roughly ₹2,000 crore multi-year brownfield capital expenditure programme. FY25 cash generated from operations was ₹914.7 crore, against ₹393.8 crore deployed in investments.</p>
+  </div>
+
+  <div class="card">
+    <h3>Where the money goes</h3>
+    <ul>
+      <li><b>Biologics:</b> stainless-steel reactor capacity going from 8,000L to 23,000L for monoclonal antibodies — which Gland says will position it as a major player in biologics contract manufacturing.</li>
+      <li><b>Cartridges:</b> fill-and-finish capacity rising from 4 crore to 14 crore units, supporting GLP-1 (weight-loss/diabetes) and insulin programmes.</li>
+      <li><b>Format flexibility:</b> infrastructure designed for interchangeable filling across vials, cartridges and pre-filled syringes.</li>
+    </ul>
+  </div>
+
+  <div class="callout"><b>Cenexi is the swing factor.</b> A multi-year programme is modernising its infrastructure with new pre-filled syringe, vial and cartridge lines, plus high-potency and freeze-dried capability. Q3 FY26 management lists the Cenexi turnaround as a named strategic focus.</div>
+
+  <div class="card">
+    <h3>Near-term revenue runway</h3>
+    <ul>
+      <li>Dalbavancin launched in the US and Europe, and a multivitamin in April, are expected to be meaningful contributors to growth in FY27 and beyond.</li>
+      <li>One major contract-manufacturing project is expected to be commercialised in H2 FY28, with an estimated annual revenue potential of USD 2.5–3 crore.</li>
+      <li>The pipeline beyond that covers hormones, suspensions, peptides, ready-to-use bags, biosimilars and specialty injectable platforms.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- VALUATION -->
+<section class="panel" id="p5">
+  <h2 class="sect-title">Valuation</h2>
+  <p class="sect-desc">Paid up relative to its own history, but not against the sector.</p>
+
+  <div class="tw"><table>
+    <tr><th>Multiple</th><th>Current</th><th>3-Yr Median</th><th>Industry</th></tr>
+    <tr><td>Price to earnings</td><td class="n">43.4x</td><td class="n">38.4x</td><td class="n">54.0x</td></tr>
+    <tr><td>EV / EBITDA</td><td class="n">26.2x</td><td class="n">18.9x</td><td class="n">28.9x</td></tr>
+    <tr><td>Price to book</td><td class="n">4.7x</td><td class="n">3.2x</td><td class="n">4.4x</td></tr>
+  </table></div>
+  <div class="src">Source: Valuation metrics</div>
+
+  <div class="callout"><b>Read:</b> price to earnings and EV/EBITDA trade above Gland's own 3-year median but below the industry average. Free cash flow yield is thin at 1.1%.</div>
+</section>
+
+<!-- GOVERNANCE -->
+<section class="panel" id="p6">
+  <h2 class="sect-title">Governance &amp; evidence gaps</h2>
+  <p class="sect-desc">A stable but boilerplate commitment — and three questions the record cannot answer.</p>
+
+  <div class="card">
+    <h3>Governance: consistent, and generic</h3>
+    <p>The governance language is near-identical across FY21–FY26, built on transparency, integrity, honesty and accountability, and adherence to regulatory requirements in true spirit.</p>
+    <p>The board claims diverse expertise across global economics, corporate governance, pharmaceuticals and healthcare, finance, risk management, manufacturing, supply chain and legal and regulatory affairs. Disclosed risk domains span regulatory compliance, financial stability, technology, supply chain and business continuity.</p>
+  </div>
+
+  <div class="callout red">
+    <b>What this deep dive cannot verify.</b> The evidence pool returned nothing on three material risk questions:
+    <ul style="margin-top:8px">
+      <li>The <b>Fosun Pharma relationship</b> — shareholding, board representation, related-party transactions. <span class="nd">NOT DISCLOSED</span></li>
+      <li>The <b>CEO transition</b>. <span class="nd">NOT DISCLOSED</span></li>
+      <li><b>Forensic findings</b> around receivables and goodwill. <span class="nd">NOT DISCLOSED</span></li>
+    </ul>
+  </div>
+
+  <div class="callout"><b>The honest position:</b> on each of these, the disclosed record is clean but the analysis can neither confirm nor refute the overhang. A buyer of the stock is taking Gland's own disclosures on trust for these items.</div>
+</section>
+
+</main>
+
+<script>
+var TABS = ["Verdict","Value Chain","Moat","Financials","Capex","Valuation","Governance"];
+var drawn = {};
+var navEl = document.getElementById('tabs');
+TABS.forEach(function(t,i){
+  var b = document.createElement('button');
+  b.className = 'tab' + (i===0?' active':'');
+  b.textContent = t;
+  b.onclick = function(){ go(i, b); };
+  navEl.appendChild(b);
+});
+function go(i, btn){
+  document.querySelectorAll('.tab').forEach(function(e){e.classList.remove('active')});
+  document.querySelectorAll('.panel').forEach(function(e){e.classList.remove('active')});
+  btn.classList.add('active');
+  document.getElementById('p'+i).classList.add('active');
+  btn.scrollIntoView({inline:'center', block:'nearest', behavior:'smooth'});
+  window.scrollTo({top:0, behavior:'smooth'});
+  render(i);
+}
+var AX = { grid:{color:'rgba(23,35,59,.8)'}, ticks:{color:'#8a94a6', font:{family:'JetBrains Mono', size:10}} };
+function baseOpts(){
+  return {
+    responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{ labels:{ color:'#8a94a6', font:{family:'DM Sans', size:11}, boxWidth:12 } } },
+    scales:{ x:AX, y:AX }
+  };
+}
+function render(i){
+  if(drawn[i]) return;
+  drawn[i] = true;
+  if(i===3){
+    var o = {
+      responsive:true, maintainAspectRatio:false,
+      plugins:{ legend:{ labels:{ color:'#8a94a6', font:{family:'DM Sans', size:11}, boxWidth:12 } } },
+      scales:{
+        x:AX,
+        y:{ grid:AX.grid, ticks:AX.ticks, position:'left' },
+        y1:{ grid:{drawOnChartArea:false}, ticks:AX.ticks, position:'right' }
+      }
+    };
+    new Chart(document.getElementById('cRev'), {
+      type:'bar',
+      data:{
+        labels:['FY23','FY24','FY25','FY26'],
+        datasets:[
+          { type:'bar', label:'Revenue (₹ cr)', data:[3624.6,5664.7,5616.5,6430.7], backgroundColor:'rgba(240,165,0,.7)', borderRadius:5, yAxisID:'y' },
+          { type:'line', label:'Operating margin %', data:[28.3,23.5,22.6,25.3], borderColor:'#5aa9ff', tension:.3, pointRadius:4, yAxisID:'y1' },
+          { type:'line', label:'Return on capital %', data:[13.3,12.7,11.7,14.1], borderColor:'#37d39b', tension:.3, pointRadius:4, yAxisID:'y1' }
+        ]
+      },
+      options: o
+    });
+    new Chart(document.getElementById('cCcc'), {
+      type:'line',
+      data:{
+        labels:['FY23','FY24','FY25','FY26'],
+        datasets:[
+          { label:'Inventory days', data:[421,278,294,284], borderColor:'#f0a500', tension:.3, pointRadius:4 },
+          { label:'Cash cycle (days)', data:[382,250,250,255], borderColor:'#ff5964', tension:.3, pointRadius:4 }
+        ]
+      },
+      options: baseOpts()
+    });
+  }
+}
+</script>
+</body>
+</html>
